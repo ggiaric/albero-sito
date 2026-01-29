@@ -1449,6 +1449,30 @@
                 grid-template-columns: 1fr;
                 gap: 2rem;
             }
+
+            .about-main {
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .about-content {
+                text-align: center;
+            }
+
+            .about-image {
+                align-self: center;
+                margin-top: 0;
+            }
+
+            .about-credentials {
+                flex-wrap: wrap;
+                gap: 2rem;
+            }
+
+            .credential {
+                flex: 1;
+                min-width: 200px;
+            }
         }
 
         /* Mobile */
@@ -1514,6 +1538,17 @@
                 font-size: 16px;
             }
 
+            .hero-cta-enhanced {
+                padding: 1rem 2rem;
+                font-size: 0.95rem;
+                gap: 0.5rem;
+            }
+
+            .contact .hero-cta-enhanced {
+                padding: 0.9rem 1.8rem;
+                font-size: 0.9rem;
+            }
+
             .badge {
                 padding: 0.75rem 1rem;
                 font-size: 0.85rem;
@@ -1531,6 +1566,38 @@
 
             .about-image {
                 max-width: 120px;
+            }
+
+            .about-main {
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+
+            .about-content {
+                text-align: center;
+                padding-top: 1rem;
+            }
+
+            .about-text {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+
+            .about-credentials {
+                flex-direction: column;
+                gap: 2rem;
+                align-items: center;
+            }
+
+            .credential {
+                flex-direction: row;
+                text-align: left;
+                max-width: 300px;
+            }
+
+            .credential-logo {
+                width: 50px;
+                height: 50px;
             }
 
             .stat-number {
@@ -2804,7 +2871,11 @@
                 <span class="section-label">Contatti</span>
                 
                 
-                <button class="cta-button" onclick="openModal()">🌳 Richiedi Sopralluogo Gratuito</button>
+                <button class="cta-button hero-cta-enhanced" onclick="openModal()">
+                    <span class="cta-icon">🌳</span>
+                    <span class="cta-text">Richiedi Sopralluogo Gratuito</span>
+                    <span class="cta-arrow">→</span>
+                </button>
                 
                 <div class="contact-info">
                     <div class="contact-item">
@@ -2913,8 +2984,10 @@
                 </div>
 
                 <div class="service-modal-cta">
-                    <button class="cta-button" onclick="goToCalendar()" data-component-name="<button />">
-                        🌳 Richiedi Sopralluogo Gratuito
+                    <button class="cta-button hero-cta-enhanced" onclick="goToCalendar()" data-component-name="<button />">
+                        <span class="cta-icon">🌳</span>
+                        <span class="cta-text">Richiedi Sopralluogo Gratuito</span>
+                        <span class="cta-arrow">→</span>
                     </button>
                 </div>
             </div>
