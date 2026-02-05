@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17896052981"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-17896052981');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dott. Luigi Arici - Agronomo Brescia | Tree Climber | Valutazione VTA Alberi</title>
@@ -3345,7 +3355,7 @@
 
     <footer>
         <div class="footer-content">
-            <div>© 2024 Dott. Luigi Arici — P.IVA 03936240983</div>
+            <div>© 2024 Dott. Luigi Arici — P.IVA 03936240983 | <a href="#" onclick="openPrivacyModal(); return false;" style="font-size: 12px; color: inherit; opacity: 0.7; text-decoration: none; transition: opacity 0.3s;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.7'">Informativa sulla Privacy</a></div>
         </div>
     </footer>
 
@@ -4208,5 +4218,277 @@
         });
 
     </script>
+
+    <!-- CSS Modal Privacy -->
+    <style>
+        .privacy-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .privacy-modal-overlay.active {
+            display: flex;
+        }
+
+        .privacy-modal {
+            background: white;
+            border-radius: 12px;
+            max-width: 800px;
+            max-height: 90vh;
+            width: 100%;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .privacy-modal-header {
+            background: linear-gradient(135deg, #66bf3c 0%, #5aa635 100%);
+            color: white;
+            padding: 25px 30px;
+            position: relative;
+        }
+
+        .privacy-modal-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+            text-align: center;
+        }
+
+        .privacy-modal-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .privacy-modal-close:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: scale(1.1);
+        }
+
+        .privacy-modal-body {
+            padding: 30px;
+            overflow-y: auto;
+            flex: 1;
+            color: #333;
+        }
+
+        .privacy-section {
+            margin-bottom: 25px;
+        }
+
+        .privacy-section h3 {
+            color: #66bf3c;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #66bf3c;
+            padding-bottom: 5px;
+        }
+
+        .privacy-section p, .privacy-section li {
+            line-height: 1.6;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .privacy-section ul {
+            margin-left: 20px;
+            margin-bottom: 0;
+        }
+
+        .highlight {
+            background: rgba(102, 191, 60, 0.1);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 500;
+            color: #66bf3c;
+        }
+
+        .contact-box {
+            background: linear-gradient(135deg, #66bf3c 0%, #5aa635 100%);
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            margin: 25px 0;
+            color: white;
+        }
+
+        .contact-box h3 {
+            color: white;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .contact-box p {
+            color: white;
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .privacy-modal-overlay {
+                padding: 10px;
+            }
+
+            .privacy-modal {
+                max-height: 95vh;
+            }
+
+            .privacy-modal-header {
+                padding: 20px;
+            }
+
+            .privacy-modal-title {
+                font-size: 20px;
+            }
+
+            .privacy-modal-body {
+                padding: 20px;
+            }
+
+            .privacy-section h3 {
+                font-size: 16px;
+            }
+        }
+
+        /* Previene lo scroll del body quando il modal è aperto */
+        body.modal-open {
+            overflow: hidden;
+        }
+    </style>
+
+    <!-- Modal Privacy HTML -->
+    <div class="privacy-modal-overlay" id="privacyModalOverlay">
+        <div class="privacy-modal">
+            <div class="privacy-modal-header">
+                <h2 class="privacy-modal-title">Informativa sulla privacy</h2>
+                <button class="privacy-modal-close" onclick="closePrivacyModal()">×</button>
+            </div>
+            <div class="privacy-modal-body">
+                <div class="privacy-section">
+                    <h3>1. Titolare del Trattamento</h3>
+                    <p>Il Titolare del trattamento è:</p>
+                    <p><span class="highlight">Dott. Luigi Arici</span></p>
+                    <p>Sede legale: <span class="highlight">Via Antonio cottinelli</span></p>
+                    <p>Email: <span class="highlight">luigiarici1997@gmail.com</span></p>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>2. Dati Raccolti</h3>
+                    <p>Fra i Dati Personali raccolti da questo Sito Web, ci sono:</p>
+                    <ul>
+                        <li>Dati di navigazione (IP, browser, tempo permanenza)</li>
+                        <li>Cookie e Dati di utilizzo</li>
+                        <li>Dati volontari (Nome, Email, Telefono) moduli contatto</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>3. Finalità del Trattamento</h3>
+                    <p>I dati sono raccolti per:</p>
+                    <ul>
+                        <li><strong>Contattare l'Utente:</strong> Rispondere richieste moduli</li>
+                        <li><strong>Statistica:</strong> Analizzare traffico sito (Google Analytics)</li>
+                        <li><strong>Pubblicità:</strong> Annunci pertinenti (Google Ads)</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>4. Base Giuridica</h3>
+                    <p>Il Titolare tratta Dati Personali quando:</p>
+                    <ul>
+                        <li>L'Utente ha prestato il consenso per finalità specifiche</li>
+                        <li>Il trattamento è necessario all'esecuzione di un contratto</li>
+                    </ul>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>5. Modalità e Luogo</h3>
+                    <p>Il trattamento viene effettuato mediante strumenti informatici, con modalità organizzative e logiche strettamente correlate alle finalità indicate. I dati sono trattati presso le sedi operative del Titolare.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>6. Comunicazione a Terzi</h3>
+                    <p>I dati potranno essere comunicati a soggetti terzi che svolgono funzioni connesse e strumentali all'operatività del servizio (fornitori tecnici, hosting, agenzie marketing). In particolare, i dati di navigazione sono trattati da Google Ireland Limited per Google Ads.</p>
+                </div>
+
+                <div class="privacy-section">
+                    <h3>7. Diritti dell'Utente</h3>
+                    <p>Gli Utenti possono esercitare determinati diritti:</p>
+                    <ul>
+                        <li>Revocare il consenso in ogni momento</li>
+                        <li>Accedere ai propri Dati e chiederne rettifica/cancellazione</li>
+                        <li>Opporsi al trattamento per finalità di marketing</li>
+                    </ul>
+                </div>
+
+                <div class="contact-box">
+                    <h3>Per esercitare i tuoi diritti</h3>
+                    <p>Invia una richiesta a: <strong>luigiarici1997@gmail.com</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Modal Privacy -->
+    <script>
+        function openPrivacyModal() {
+            const modal = document.getElementById('privacyModalOverlay');
+            modal.classList.add('active');
+            document.body.classList.add('modal-open');
+            
+            // Previene lo scroll del body
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closePrivacyModal() {
+            const modal = document.getElementById('privacyModalOverlay');
+            modal.classList.remove('active');
+            document.body.classList.remove('modal-open');
+            
+            // Ripristina lo scroll del body
+            document.body.style.overflow = '';
+        }
+
+        // Chiudi il modal cliccando fuori
+        document.getElementById('privacyModalOverlay').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closePrivacyModal();
+            }
+        });
+
+        // Chiudi il modal con ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closePrivacyModal();
+            }
+        });
+    </script>
+
 </body>
 </html>
