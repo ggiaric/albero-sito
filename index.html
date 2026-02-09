@@ -2303,7 +2303,7 @@
                                 "name": "Sopralluogo Gratuito",
                                 "description": "Valutazione gratuita delle necessità del tuo albero"
                             },
-                                                    }
+                            "availability": "https://schema.org/InStock"
                     ]
                 }
             },
@@ -3162,6 +3162,18 @@
                     <span class="cta-arrow">→</span>
                 </button>
                 
+                <!-- Alternative Contact Methods -->
+                <div class="alternative-contacts" style="margin-top: 20px; display: flex; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn btn-call" onclick="directCall()" style="flex: 1; min-width: 200px;">
+                        <span class="btn-icon">📞</span>
+                        <span>Chiamami Ora</span>
+                    </button>
+                    <button class="btn btn-whatsapp-direct" onclick="directWhatsApp()" style="flex: 1; min-width: 200px;">
+                        <span class="btn-icon">💬</span>
+                        <span>WhatsApp Diretto</span>
+                    </button>
+                </div>
+                
                 <div class="contact-info">
                     <div class="contact-item">
                         <div class="contact-item-icon">
@@ -3613,6 +3625,9 @@
                 
                 <div class="nav-buttons">
                     <button class="btn btn-back" onclick="goBack()">Indietro</button>
+                    <button class="btn btn-save" onclick="saveAndResume()">
+                        💾 Salva e riprendi dopo
+                    </button>
                     <button class="btn btn-next" onclick="goToFinalStep()">Avanti</button>
                 </div>
             </div>
@@ -3624,7 +3639,11 @@
                 
                 <div class="nav-buttons">
                     <button class="btn btn-back" onclick="goBack()">Indietro</button>
-                    <button class="btn btn-submit" onclick="submitForm()">✅ Invia Richiesta</button>
+                    <button class="cta-button hero-cta-enhanced" onclick="submitForm()">
+                        <span class="cta-icon">✅</span>
+                        <span class="cta-text">Invia Richiesta</span>
+                        <span class="cta-arrow">→</span>
+                    </button>
                 </div>
             </div>
                 </div>
@@ -3746,9 +3765,36 @@
             domanda2: '',
             domanda3: '',
             dataPreferita: '',
-            orarioPreferito: ''
+            orarioPreferito: '',
+            nome: '',
+            email: '',
+            telefono: '',
+            comune: '',
+            indirizzo: ''
         };
         let flowType = '';
+        
+        // TRACKING FUNNEL
+        function trackFunnelEvent(action, step = null) {
+            console.log(`[TRACKING] ${action} - Step: ${step || currentStep}`, answers);
+            
+            // Google Analytics tracking
+            if (typeof gtag !== 'undefined') {
+                gtag('event', action, {
+                    'event_category': 'Questionnaire',
+                    'event_label': step || `Step ${currentStep}`,
+                    'custom_parameter': JSON.stringify(answers)
+                });
+            }
+            
+            // Custom tracking per analisi
+            const timestamp = new Date().toISOString();
+            console.log(`[${timestamp}] Questionnaire Event: ${action}`, {
+                step: step || currentStep,
+                answers: answers,
+                flowType: flowType
+            });
+        }
         
         // Variabili per il calendario
         let currentMonth = new Date().getMonth();
@@ -4046,6 +4092,9 @@
         }
 
         function showDisponibilita() {
+            console.log('[DEBUG] showDisponibilita() called - moving to step 4');
+            trackFunnelEvent('show_disponibilita', 4);
+            
             hideAllQuestions();
             currentStep = 4;
             
@@ -4068,6 +4117,9 @@
         }
 
         function showQuestion2() {
+            console.log('[DEBUG] showQuestion2() called - moving to step 2', { flowType });
+            trackFunnelEvent('show_question2', 2);
+            
             hideAllQuestions();
             currentStep = 2;
             
@@ -4090,11 +4142,15 @@
                     break;
             }
             
+            console.log('[DEBUG] Showing question2:', nextQuestion);
             document.getElementById(nextQuestion).classList.add('active');
             updateProgress();
         }
 
         function showQuestion3() {
+            console.log('[DEBUG] showQuestion3() called - moving to step 3', { flowType });
+            trackFunnelEvent('show_question3', 3);
+            
             hideAllQuestions();
             currentStep = 3;
             
@@ -4116,45 +4172,56 @@
                     // Per "altro" andiamo direttamente alla disponibilità
                     // La domanda3 non esiste per "altro", quindi la settiamo a 'N/A'
                     answers.domanda3 = 'N/A';
+                    console.log('[DEBUG] Flow type "altro" - going directly to disponibilita');
                     showDisponibilita();
                     return;
             }
             
+            console.log('[DEBUG] Showing question3:', nextQuestion);
             document.getElementById(nextQuestion).classList.add('active');
             updateProgress();
         }
 
         function showContatti() {
             try {
-                console.log('showContatti() chiamata - passo allo step 5');
+                console.log('[DEBUG] showContatti() called - moving to step 5');
+                trackFunnelEvent('show_contatti', 5);
                 
                 // Mostra il form con i campi nome, email, telefono, comune
                 const contattiElement = document.getElementById('questionDatiContatto');
                 if (!contattiElement) {
-                    console.error('ERRORE: questionDatiContatto non trovato nel DOM!');
+                    console.error('[ERROR] questionDatiContatto non trovato nel DOM!');
                     alert('ERRORE: Form contatto non trovato!');
                     return;
                 }
                 
-                console.log('Elemento trovato:', contattiElement);
+                console.log('[DEBUG] Elemento trovato:', contattiElement);
                 hideAllQuestions();
                 currentStep = 5;
                 contattiElement.classList.add('active');
                 updateProgress();
-                console.log('Step corrente:', currentStep);
-                console.log('Classe elemento:', contattiElement.className);
+                console.log('[DEBUG] Step corrente:', currentStep);
+                console.log('[DEBUG] Classe elemento:', contattiElement.className);
             } catch (error) {
-                console.error('Errore in showContatti():', error);
+                console.error('[ERROR] Errore in showContatti():', error);
                 alert('Errore: ' + error.message);
             }
         }
 
         function goToFinalStep() {
+            console.log('[DEBUG] goToFinalStep() called - validating contact form');
+            
             // Validazione dei campi contatto
             const nome = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const comune = document.getElementById('comune').value.trim();
+            const indirizzo = document.getElementById('indirizzo').value.trim();
             
-            if (!nome || !email) {
+            console.log('[DEBUG] Form values:', { nome, email, telefono, comune, indirizzo });
+            
+            if (!nome || !email || !telefono || !comune || !indirizzo) {
+                console.log('[ERROR] Missing required fields:', { nome, email, telefono, comune, indirizzo });
                 alert('Per favore, compila tutti i campi obbligatori.');
                 return;
             }
@@ -4162,6 +4229,7 @@
             // Validazione email
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!emailRegex.test(email)) {
+                console.log('[ERROR] Invalid email format:', email);
                 alert('Per favore, inserisci un\'email valida.');
                 return;
             }
@@ -4169,6 +4237,12 @@
             // Salva i dati di contatto
             answers.nome = nome;
             answers.email = email;
+            answers.telefono = telefono;
+            answers.comune = comune;
+            answers.indirizzo = indirizzo;
+            
+            console.log('[DEBUG] Contact data saved:', answers);
+            trackFunnelEvent('contact_form_completed', 5);
             
             hideAllQuestions();
             currentStep = 6;
@@ -4176,13 +4250,84 @@
             updateProgress();
         }
 
+        function saveAndResume() {
+            console.log('[DEBUG] saveAndResume() called - saving progress');
+            trackFunnelEvent('save_and_resume', currentStep);
+            
+            // Salva tutti i dati attuali
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const comune = document.getElementById('comune').value.trim();
+            const indirizzo = document.getElementById('indirizzo').value.trim();
+            
+            // Salva anche i dati parziali del questionario
+            answers.nome = nome;
+            answers.email = email;
+            answers.telefono = telefono;
+            answers.comune = comune;
+            answers.indirizzo = indirizzo;
+            
+            console.log('[DEBUG] Progress saved:', answers);
+            
+            // Chiudi il modal ma non resettare
+            const modal = document.getElementById('modalOverlay');
+            if (modal) {
+                modal.classList.remove('active');
+                unlockBodyScroll();
+            }
+            
+            // Mostra messaggio di conferma
+            alert('Progresso salvato! Puoi riprendere quando vuoi cliccando sul pulsante "Richiedi Sopralluogo".');
+            
+            // Tracking del salvataggio
+            trackFunnelEvent('progress_saved', currentStep);
+        }
+
+        function openModal() {
+            console.log('[DEBUG] openModal() called - questionnaire opened');
+            trackFunnelEvent('questionnaire_opened', 1);
+            
+            document.getElementById('modalOverlay').classList.add('active');
+            lockBodyScroll();
+            updateProgress();
+        }
+
+        function closeModal() {
+            console.log('[DEBUG] closeModal() called - questionnaire closed');
+            trackFunnelEvent('questionnaire_closed', currentStep);
+            
+            document.getElementById('modalOverlay').classList.remove('active');
+            unlockBodyScroll();
+            resetForm();
+        }
+
+        function directCall() {
+            console.log('[DEBUG] directCall() called');
+            trackFunnelEvent('direct_call', 'contact');
+            
+            // Apre direttamente il dialer telefonico
+            window.location.href = 'tel:+393382340465';
+        }
+
+        function directWhatsApp() {
+            console.log('[DEBUG] directWhatsApp() called');
+            trackFunnelEvent('direct_whatsapp', 'contact');
+            
+            // Apre direttamente WhatsApp con messaggio precompilato
+            const message = encodeURIComponent('Buongiorno, vorrei richiedere un sopralluogo per i miei alberi.');
+            window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank');
+        }
+
         function hideAllQuestions() {
             document.querySelectorAll('.question-container').forEach(q => {
                 q.classList.remove('active');
             });
         }
-
-        function goBack() {
+            function goBack() {
+            console.log('[DEBUG] goBack() called - current step:', currentStep);
+            trackFunnelEvent('go_back', currentStep);
+            
             if (currentStep === 2) {
                 // Torna alla domanda 1
                 hideAllQuestions();
@@ -4213,7 +4358,7 @@
                 // Torna ai dati contatto
                 hideAllQuestions();
                 currentStep = 5;
-                document.getElementById('questionDatiContatti').classList.add('active');
+                document.getElementById('questionDatiContatto').classList.add('active');
             }
             updateProgress();
         }
@@ -4237,6 +4382,9 @@
         }
 
         function submitForm() {
+            console.log('[DEBUG] submitForm() called - final submission');
+            trackFunnelEvent('form_submitted', 6);
+            
             // Validazione campi obbligatori
             const nome = document.getElementById('nome').value.trim();
             const email = document.getElementById('email').value.trim();
@@ -4244,21 +4392,30 @@
             const comune = document.getElementById('comune').value.trim();
             const indirizzo = document.getElementById('indirizzo').value.trim();
             
+            console.log('[DEBUG] Final form validation:', { nome, email, telefono, comune, indirizzo });
+            
             // Verifica che tutti i campi obbligatori siano compilati
             if (!nome || !email || !telefono || !comune || !indirizzo) {
+                console.log('[ERROR] Missing required fields in final submission');
                 alert('Per favore, compila tutti i campi obbligatori contrassegnati con *');
                 return;
             }
             
             // Crea messaggio WhatsApp
             const message = createWhatsAppMessage();
+            console.log('[DEBUG] WhatsApp message created:', message);
             
             // Invia a WhatsApp
             const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+            console.log('[DEBUG] Opening WhatsApp URL:', whatsappUrl);
             window.open(whatsappUrl, '_blank');
             
             // Tracking conversione Google Ads
-            gtag_report_conversion();
+            if (typeof gtag_report_conversion !== 'undefined') {
+                gtag_report_conversion();
+            }
+            
+            trackFunnelEvent('whatsapp_opened', 6);
             
             // Chiudi modal e resetta
             setTimeout(() => {
@@ -4494,8 +4651,10 @@
                     </p>
                 </div>
                 <div class="service-modal-cta">
-                    <button class="cta-button" onclick="goToCalendar()" data-component-name="<button />">
-                        🌳 Richiedi Sopralluogo Gratuito
+                    <button class="cta-button hero-cta-enhanced" onclick="goToCalendar()" data-component-name="<button />">
+                        <span class="cta-icon">🌳</span>
+                        <span class="cta-text">Richiedi Sopralluogo Gratuito</span>
+                        <span class="cta-arrow">→</span>
                     </button>
                 </div>
             `;
