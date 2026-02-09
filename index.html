@@ -2254,8 +2254,8 @@
                 },
                 "geo": {
                     "@type": "GeoCoordinates",
-                    "latitude": "45.5416",
-                    "longitude": "10.2118"
+                    "latitude": 45.5416,
+                    "longitude": 10.2118
                 },
                 "areaServed": {
                     "@type": "GeoCircle",
@@ -2264,7 +2264,7 @@
                         "latitude": 45.5416,
                         "longitude": 10.2118
                     },
-                    "geoRadius": "50000"
+                    "geoRadius": "50000 m"
                 },
                 "priceRange": "€€",
                 "paymentAccepted": ["Contanti", "Bonifico bancario"],
@@ -2303,9 +2303,7 @@
                                 "name": "Sopralluogo Gratuito",
                                 "description": "Valutazione gratuita delle necessità del tuo albero"
                             },
-                            "price": "0",
-                            "priceCurrency": "EUR"
-                        }
+                                                    }
                     ]
                 }
             },
@@ -2401,18 +2399,6 @@
                 "mainEntity": {
                     "@id": "https://www.alberofacile.it/#business"
                 }
-            },
-            {
-                "@type": "WebSite",
-                "@id": "https://www.alberofacile.it/#website",
-                "url": "https://www.alberofacile.it",
-                "name": "Albero Facile - Dott. Luigi Arici",
-                "description": "Servizi professionali di agronomia e tree climbing a Brescia e provincia",
-                "inLanguage": "it-IT",
-                "publisher": {
-                    "@id": "https://www.alberofacile.it/#business"
-                }
-            }
         ]
     }
     </script>
@@ -3610,6 +3596,21 @@
                     <input type="email" id="email" name="email" class="form-input" placeholder="mario.rossi@email.com" required>
                 </div>
                 
+                <div class="form-group">
+                    <label for="telefono" class="form-label">Telefono *</label>
+                    <input type="tel" id="telefono" name="telefono" class="form-input" placeholder="+39 333 1234567" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="comune" class="form-label">Comune *</label>
+                    <input type="text" id="comune" name="comune" class="form-input" placeholder="Brescia" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="indirizzo" class="form-label">Indirizzo completo (via, numero, civico)</label>
+                    <input type="text" id="indirizzo" name="indirizzo" class="form-input" placeholder="Via Roma 123, Brescia">
+                </div>
+                
                 <div class="nav-buttons">
                     <button class="btn btn-back" onclick="goBack()">Indietro</button>
                     <button class="btn btn-next" onclick="goToFinalStep()">Avanti</button>
@@ -4236,6 +4237,19 @@
         }
 
         function submitForm() {
+            // Validazione campi obbligatori
+            const nome = document.getElementById('nome').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const telefono = document.getElementById('telefono').value.trim();
+            const comune = document.getElementById('comune').value.trim();
+            const indirizzo = document.getElementById('indirizzo').value.trim();
+            
+            // Verifica che tutti i campi obbligatori siano compilati
+            if (!nome || !email || !telefono || !comune || !indirizzo) {
+                alert('Per favore, compila tutti i campi obbligatori contrassegnati con *');
+                return;
+            }
+            
             // Crea messaggio WhatsApp
             const message = createWhatsAppMessage();
             
@@ -4271,10 +4285,43 @@
             message += `\n*📞 Contatti:*\n`;
             message += `- Nome: ${answers.nome}\n`;
             message += `- Email: ${answers.email}\n`;
-            message += `- Telefono: ${answers.telefono}\n`;
-            message += `- Comune: ${answers.comune}\n`;
+            message += `- Telefono: ${answers.telefono || 'Non specificato'}\n`;
+            message += `- Comune: ${answers.comune || 'Non specificato'}\n`;
             
-            return message;
+            // Aggiungi dettagli intervento se disponibili
+            if (answers.tipoIntervento) {
+                message += `\n*🌳 Tipo Intervento:*\n`;
+                message += `- ${answers.tipoIntervento}\n`;
+            }
+            
+            // Aggiungi numero alberi e altezza se disponibili
+            if (answers.numeroAlberi) {
+                message += `\n*🌳 Numero Alberi:*\n`;
+                message += `- ${answers.numeroAlberi}\n`;
+            }
+            
+            if (answers.altezza) {
+                message += `\n*📏 Altezza Stimata:*\n`;
+                message += `- ${answers.altezza}\n`;
+            }
+            
+            // Aggiungi problemi specifici se disponibili
+            if (answers.problemi) {
+                message += `\n*⚠️ Problemi Specifici:*\n`;
+                message += `- ${answers.problemi}\n`;
+            }
+            
+            // Aggiungi urgenza se disponibile
+            if (answers.urgenza) {
+                message += `\n*🚨 Urgenza:*\n`;
+                message += `- ${answers.urgenza}\n`;
+            }
+            
+            // Aggiungi indirizzo completo se disponibile
+            if (answers.indirizzo) {
+                message += `\n*📍 Indirizzo Completo:*\n`;
+                message += `- ${answers.indirizzo}\n`;
+            }
         }
 
         // Inizializza il calendario alla apertura
