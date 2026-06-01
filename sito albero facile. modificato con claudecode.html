@@ -4961,72 +4961,56 @@
         }
 
         function submitForm() {
-            console.log('[DEBUG] submitForm() called - final submission');
+            // Leggi i valori dal form
+            var nome = '';
+            var email = '';
+            var telefono = '';
+            var comune = '';
+            var indirizzo = '';
 
-            // Validazione campi obbligatori
-            var nomeEl = document.getElementById('nome');
-            var emailEl = document.getElementById('email');
-            var telefonoEl = document.getElementById('telefono');
-            var comuneEl = document.getElementById('comune');
-            var indirizzoEl = document.getElementById('indirizzo');
+            try { nome = document.getElementById('nome').value.trim(); } catch(e) {}
+            try { email = document.getElementById('email').value.trim(); } catch(e) {}
+            try { telefono = document.getElementById('telefono').value.trim(); } catch(e) {}
+            try { comune = document.getElementById('comune').value.trim(); } catch(e) {}
+            try { indirizzo = document.getElementById('indirizzo').value.trim(); } catch(e) {}
 
-            var nome = nomeEl ? nomeEl.value.trim() : '';
-            var email = emailEl ? emailEl.value.trim() : '';
-            var telefono = telefonoEl ? telefonoEl.value.trim() : '';
-            var comune = comuneEl ? comuneEl.value.trim() : '';
-            var indirizzo = indirizzoEl ? indirizzoEl.value.trim() : '';
-
-            // Verifica che tutti i campi obbligatori siano compilati
             if (!nome || !email || !telefono || !comune) {
                 alert('Per favore, compila tutti i campi obbligatori contrassegnati con *');
                 return;
             }
 
-            // Salva i dati di contatto in answers prima di creare il messaggio
-            answers.nome = nome;
-            answers.email = email;
-            answers.telefono = telefono;
-            answers.comune = comune;
-            answers.indirizzo = indirizzo;
+            // Costruisci il messaggio direttamente qui, senza chiamare altre funzioni
+            var msg = 'NUOVA RICHIESTA SOPRALLUOGO\n\n';
+            msg = msg + 'Nome: ' + nome + '\n';
+            msg = msg + 'Email: ' + email + '\n';
+            msg = msg + 'Telefono: ' + telefono + '\n';
+            msg = msg + 'Comune: ' + comune + '\n';
+            if (indirizzo) { msg = msg + 'Indirizzo: ' + indirizzo + '\n'; }
 
-            // Crea messaggio WhatsApp con try-catch
-            var message = '';
+            // Aggiungi dati del questionario se disponibili
             try {
-                message = createWhatsAppMessage();
-            } catch(err) {
-                console.error('[ERROR] createWhatsAppMessage failed:', err);
-                // Fallback: messaggio semplice con i dati del form
-                message = 'NUOVA RICHIESTA SOPRALLUOGO\n\n';
-                message += 'Nome: ' + nome + '\n';
-                message += 'Email: ' + email + '\n';
-                message += 'Telefono: ' + telefono + '\n';
-                message += 'Comune: ' + comune + '\n';
-                if (indirizzo) message += 'Indirizzo: ' + indirizzo + '\n';
-                if (answers.tipoIntervento) message += 'Intervento: ' + answers.tipoIntervento + '\n';
-                if (answers.dataPreferita) message += 'Data: ' + answers.dataPreferita + '\n';
-                if (answers.orarioPreferito) message += 'Orario: ' + answers.orarioPreferito + '\n';
-            }
-
-            // Sicurezza: se message e' ancora vuoto o undefined, usa fallback
-            if (!message) {
-                message = 'Richiesta sopralluogo da ' + nome + ' - Tel: ' + telefono + ' - Comune: ' + comune;
-            }
-
-            // Invia a WhatsApp
-            var whatsappUrl = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
-            window.open(whatsappUrl, '_blank');
-
-            // Tracking conversione Google Ads
-            try {
-                if (typeof gtag_report_conversion !== 'undefined') {
-                    gtag_report_conversion();
-                }
-                trackFunnelEvent('whatsapp_opened', 6);
+                if (answers && answers.tipoIntervento) { msg = msg + '\nIntervento: ' + answers.tipoIntervento + '\n'; }
+                if (answers && answers.domanda2 && answers.domanda2 !== 'N/A') { msg = msg + 'Dettagli: ' + answers.domanda2 + '\n'; }
+                if (answers && answers.domanda3 && answers.domanda3 !== 'N/A') { msg = msg + 'Info: ' + answers.domanda3 + '\n'; }
+                if (answers && answers.dataPreferita) { msg = msg + '\nData preferita: ' + answers.dataPreferita + '\n'; }
+                if (answers && answers.orarioPreferito) { msg = msg + 'Orario: ' + answers.orarioPreferito + '\n'; }
             } catch(e) {}
 
-            // Mostra la schermata di conferma nel modal
-            hideAllQuestions();
-            document.getElementById('questionConferma').classList.add('active');
+            // Apri WhatsApp - usa location.href per compatibilita' mobile
+            var url = 'https://wa.me/393382340465?text=' + encodeURIComponent(msg);
+            window.location.href = url;
+
+            // Tracking
+            try {
+                if (typeof gtag_report_conversion !== 'undefined') { gtag_report_conversion(); }
+                if (typeof trackFunnelEvent !== 'undefined') { trackFunnelEvent('whatsapp_opened', 6); }
+            } catch(e) {}
+
+            // Mostra conferma
+            try {
+                hideAllQuestions();
+                document.getElementById('questionConferma').classList.add('active');
+            } catch(e) {}
         }
 
         function closeModalAfterConfirm() {
