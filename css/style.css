@@ -216,6 +216,9 @@ p{margin:0 0 1rem}
   outline:none;border-color:var(--green-600);box-shadow:0 0 0 3px rgba(64,145,108,.15)}
 .field textarea{resize:vertical;min-height:96px}
 .form-note{font-size:.82rem;color:var(--muted);margin-top:8px}
+.form-consent{display:flex;gap:9px;align-items:flex-start;font-size:.82rem;color:var(--muted);margin:6px 0 14px;line-height:1.45;cursor:pointer}
+.form-consent input{margin-top:3px;flex:0 0 auto}
+.form-consent a{color:var(--green-700);text-decoration:underline}
 
 /* ---------- Footer ---------- */
 .site-footer{background:var(--green-900);color:rgba(255,255,255,.72);padding:54px 0 30px}
