@@ -243,6 +243,18 @@ p{margin:0 0 1rem}
 .cookie-banner .btn--outline{color:#fff;border-color:rgba(255,255,255,.5)}
 .cookie-banner .btn--outline:hover{background:rgba(255,255,255,.12)}
 
+/* ---------- Recensioni ---------- */
+.reviews-summary{display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap}
+.rev-score{font-family:var(--font-display);font-size:2.4rem;color:var(--green-800);line-height:1}
+.rev-stars{color:#f5b301;font-size:1.35rem;letter-spacing:2px}
+.rev-count{color:var(--muted);font-size:.95rem}
+.reviews-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:34px}
+.review-card{background:var(--white);border:1px solid var(--line);border-radius:var(--radius);padding:26px 24px;margin:0;box-shadow:var(--shadow-sm);display:flex;flex-direction:column}
+.review-card .rev-stars-sm{color:#f5b301;font-size:1.05rem;letter-spacing:1px;margin-bottom:12px}
+.review-card p{color:#33403a;font-size:.98rem;line-height:1.6;margin:0 0 14px;font-style:italic;flex:1}
+.review-card footer{color:var(--green-900);font-weight:600;font-size:.95rem}
+@media (max-width:900px){.reviews-grid{grid-template-columns:1fr}}
+
 /* ---------- Footer ---------- */
 .site-footer{background:var(--green-900);color:rgba(255,255,255,.72);padding:54px 0 30px}
 .footer-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;

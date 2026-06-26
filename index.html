@@ -24,18 +24,35 @@
 {
   "@context":"https://schema.org",
   "@type":"ProfessionalService",
+  "@id":"https://www.alberofacile.it/#business",
   "name":"Albero Facile — Luigi Arici, agronomo e arboricoltura",
   "image":"https://www.alberofacile.it/img/logo.jpg",
   "url":"https://www.alberofacile.it/",
   "telephone":"+39 338 234 0465",
   "email":"luigiarici1997@gmail.com",
   "priceRange":"€€",
-  "areaServed":{"@type":"AdministrativeArea","name":"Brescia e provincia"},
-  "address":{"@type":"PostalAddress","addressLocality":"Brescia","addressRegion":"BS","addressCountry":"IT"},
+  "vatID":"IT04720860982",
   "founder":{"@type":"Person","name":"Luigi Arici"},
-  "knowsAbout":["Valutazione di stabilità degli alberi (VTA)","Censimento del verde","Perizia agronomica","Tree climbing","Potatura","Mitigazione ambientale","Alberi monumentali"],
+  "address":{"@type":"PostalAddress","addressLocality":"Brescia","addressRegion":"BS","postalCode":"25100","addressCountry":"IT"},
+  "geo":{"@type":"GeoCoordinates","latitude":45.5416,"longitude":10.2118},
+  "areaServed":[
+    {"@type":"AdministrativeArea","name":"Provincia di Brescia"},
+    {"@type":"Place","name":"Lago di Garda"},
+    {"@type":"Place","name":"Franciacorta"},
+    {"@type":"Place","name":"Lago d'Iseo"}
+  ],
+  "knowsAbout":["Valutazione di stabilità degli alberi (VTA)","Censimento del verde","Perizia agronomica","Tree climbing","Potatura","Alberi monumentali"],
+  "aggregateRating":{"@type":"AggregateRating","ratingValue":"5.0","reviewCount":"5","bestRating":"5","worstRating":"1"},
+  "review":[
+    {"@type":"Review","author":{"@type":"Person","name":"Paola Zobbio"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Molto professionali, corretti nel fornire un preventivo chiaro. Il lavoro è stato svolto bene, in breve tempo ed hanno lasciato il giardino pulito. Senza dubbio li consiglio."},
+    {"@type":"Review","author":{"@type":"Person","name":"Monica Paletti"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Ho chiesto un intervento per la potatura di alcuni alberi e sono stata felice di trovare Albero Facile. Ragazzo giovane e competente che ha svolto un bellissimo lavoro. Molto soddisfatta."},
+    {"@type":"Review","author":{"@type":"Person","name":"Marco Rodella"},"reviewRating":{"@type":"Rating","ratingValue":"5","bestRating":"5"},"reviewBody":"Ho chiamato Luigi per abbattere un albero perché temevo potesse cadere. Dopo una sua analisi abbiamo stabilito che la pianta era in realtà stabile e la abbiamo conservata. Sono molto soddisfatto. Persona simpatica e cordiale. Lo consiglio."}
+  ],
   "sameAs":["https://www.alberofacile.it/"]
 }
+</script>
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebPage","url":"https://www.alberofacile.it/","speakable":{"@type":"SpeakableSpecification","cssSelector":[".hero h1",".hero p"]}}
 </script>
 </head>
 <body>
@@ -198,6 +215,36 @@
           <div class="svc-foot"><span class="svc-tag">Esecuzione</span><a class="svc-link" href="potatura-tree-climbing.html">Scopri →</a></div>
         </div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECENSIONI ================= -->
+<section class="section" id="recensioni">
+  <div class="container">
+    <span class="kicker reveal">Recensioni</span>
+    <h2 class="reveal">Cosa dicono i clienti.</h2>
+    <div class="reviews-summary reveal">
+      <span class="rev-score">5,0</span>
+      <span class="rev-stars">★★★★★</span>
+      <span class="rev-count">5 recensioni su Google</span>
+    </div>
+    <div class="reviews-grid">
+      <blockquote class="review-card reveal">
+        <div class="rev-stars-sm">★★★★★</div>
+        <p>Molto professionali, corretti nel fornire un preventivo chiaro. Il lavoro è stato svolto bene, in breve tempo ed hanno lasciato il giardino pulito. Senza dubbio li consiglio.</p>
+        <footer>Paola Zobbio</footer>
+      </blockquote>
+      <blockquote class="review-card reveal">
+        <div class="rev-stars-sm">★★★★★</div>
+        <p>Ho chiesto un intervento per la potatura di alcuni alberi e sono stata felice di trovare Albero Facile. Ragazzo giovane e competente che ha svolto un bellissimo lavoro. Molto soddisfatta.</p>
+        <footer>Monica Paletti</footer>
+      </blockquote>
+      <blockquote class="review-card reveal">
+        <div class="rev-stars-sm">★★★★★</div>
+        <p>Ho chiamato Luigi per abbattere un albero perché temevo potesse cadere. Dopo una sua analisi abbiamo stabilito che la pianta era in realtà stabile e la abbiamo conservata. Molto soddisfatto, persona simpatica e cordiale. Lo consiglio.</p>
+        <footer>Marco Rodella</footer>
+      </blockquote>
     </div>
   </div>
 </section>
