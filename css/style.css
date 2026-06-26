@@ -232,6 +232,17 @@ p{margin:0 0 1rem}
 .faq-item .faq-a p{margin:0 0 10px}
 .faq-item .faq-a strong{color:var(--green-900)}
 
+/* ---------- Cookie banner ---------- */
+.cookie-banner{position:fixed;left:16px;right:16px;bottom:16px;z-index:200;max-width:760px;margin:0 auto;
+  background:var(--green-900);color:#fff;border-radius:14px;padding:16px 20px;box-shadow:var(--shadow-md);
+  display:flex;gap:18px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.cookie-banner p{margin:0;font-size:.9rem;color:rgba(255,255,255,.9);flex:1 1 300px;line-height:1.5}
+.cookie-banner a{color:#e9d8bd;text-decoration:underline}
+.cookie-banner .cookie-actions{display:flex;gap:10px;flex:0 0 auto}
+.cookie-banner .btn{padding:9px 20px;font-size:.9rem}
+.cookie-banner .btn--outline{color:#fff;border-color:rgba(255,255,255,.5)}
+.cookie-banner .btn--outline:hover{background:rgba(255,255,255,.12)}
+
 /* ---------- Footer ---------- */
 .site-footer{background:var(--green-900);color:rgba(255,255,255,.72);padding:54px 0 30px}
 .footer-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;
