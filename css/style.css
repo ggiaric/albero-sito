@@ -255,6 +255,16 @@ p{margin:0 0 1rem}
 .review-card footer{color:var(--green-900);font-weight:600;font-size:.95rem}
 @media (max-width:900px){.reviews-grid{grid-template-columns:1fr}}
 
+/* ---------- Indice guida (TOC) ---------- */
+.toc{background:var(--bg-alt);border:1px solid var(--line);border-radius:var(--radius);padding:24px 28px;margin:0 0 38px}
+.toc-title{margin:0 0 12px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:700;font-size:.82rem}
+.toc ol{margin:0;padding-left:20px;columns:2;column-gap:38px}
+.toc li{padding:5px 0}
+.toc a{color:var(--green-800);text-decoration:none}
+.toc a:hover{text-decoration:underline;color:var(--green-600)}
+.prose .cmp td.cls{font-weight:700;color:var(--green-800);white-space:nowrap}
+@media (max-width:680px){.toc ol{columns:1}}
+
 /* ---------- Footer ---------- */
 .site-footer{background:var(--green-900);color:rgba(255,255,255,.72);padding:54px 0 30px}
 .footer-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;
